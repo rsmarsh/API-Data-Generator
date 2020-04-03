@@ -15,7 +15,7 @@ const APIList = {
 
 app.use(cors());
 
-const server = app.listen(3001, () => {
+const server = app.listen(process.env.PORT || 3001, () => {
     console.log(`CORS-enabled server listening on ${server.address().port}`);
     console.log('There are '+Object.keys(APIList).length+' endpoints available. They are:');
     Object.keys(APIList).forEach((prop) => {console.log(prop)});
