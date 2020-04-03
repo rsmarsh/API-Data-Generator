@@ -1,6 +1,7 @@
 const companyNames = require('./lists/companies.json');
 const addresses = require('./lists/addresses.json');
 const names = require('./lists/names.json');
+const products = require('./lists/products.json');
 
 /**
  * Returns a randomly generated Phone/Mobile number
@@ -239,6 +240,40 @@ let _bool = function(){
 }
 
 
+/**
+ * Returns a date string in the supplied format
+ *
+ * @param {String} format - the desired date syntax, see switch statement for supported ones
+ * @returns {String} - A string representation of a randomly generated date
+ */
+let date = function(format) {
+    switch(format) {
+        case 'yyyy/mm/dd':
+        default:
+            return `${new Date().getFullYear()}/${integer(false, 0,13)}/${integer(false, 0,28)}`;
+    }
+}
+
+/**
+ * Pass an array to this function, and a random index will be returned
+ * Useful for items which can have around 3 - 10 fixed values
+ *
+ * @param {Array} arr - an array consisting of any/mixed types
+ * @returns a single variable of any type
+ */
+let randomFromArray = function(arr){
+    return arr[_randomInRange(0, arr.length-1)];
+}
+
+let productName = function(){
+    return products[_randomInRange(0, products.length)];
+}
+
+let percent = function(allowNegative = false){
+    return `${integer(allowNegative, 0, 100)}%`;
+}
+
+
 module.exports = {
     phoneNumber,
     mobileNumber,
@@ -250,5 +285,10 @@ module.exports = {
     emailAddress,
     website,
     boolean,
-    integer
+    integer,
+    date,
+    randomFromArray,
+    productName,
+    percent
+
 };

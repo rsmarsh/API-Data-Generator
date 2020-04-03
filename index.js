@@ -4,12 +4,14 @@ const cors = require('cors');
 const app = express();
 
 let companyGenerator = require('./endpoints/company-data.js');
+let poGenerator = require('./endpoints/purchase-orders.js');
 
 let endpointHits = 0;
 
 // list of permitted generator files, which when invoked will return a valid JSON object
 const APIList = {
-    "companyData": companyGenerator
+    "companyData": companyGenerator,
+    "purchaseOrderData": poGenerator
 };
 
 app.use(cors());
