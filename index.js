@@ -29,7 +29,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/:endpointName', cors(), (req, res) => {
-    console.log(`endpoint requested. ${endpointHits+=1} total hits.`);
 
     if (req.params && req.params.endpointName) {
 
