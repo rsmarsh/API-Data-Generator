@@ -17,7 +17,7 @@ let newPresentationList = function () {
             "presentationNumber": generator.integer(false, 0, 99999).toString(),
             "projectNumber": generator.integer(false, 0, 99999).toString(),
             "dateCreated": generator.date('yyyy/mm/dd'),
-            "companyName": generator.date('yyyy/mm/dd'),
+            "companyName": generator.companyName(),
             "status": generator.randomFromArray(['New Presentation', 'Presentation Sent']),
             "details": {
                 "customer": generator.companyName(),
@@ -36,6 +36,7 @@ let newPresentationList = function () {
     // generate a random number of presentations
     var count = generator.integer(false, 0, 15);
     
+    console.log(count);
     for (var i = 0; i < count; i++) {
         var newPresentation = singlePresentation();
         
