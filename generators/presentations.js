@@ -1,4 +1,5 @@
 const generator = require('../data-generator.js');
+const productGenerator = require('./product');
 
 let newPresentationList = function () {
 
@@ -13,7 +14,21 @@ let newPresentationList = function () {
 
     let singlePresentation = () => {
         return {
-           
+            "presentationNumber": generator.integer(false, 0, 99999).toString(),
+            "projectNumber": generator.integer(false, 0, 99999).toString(),
+            "dateCreated": generator.date('yyyy/mm/dd'),
+            "companyName": generator.date('yyyy/mm/dd'),
+            "status": generator.randomFromArray(['New Presentation', 'Presentation Sent']),
+            "details": {
+                "customer": generator.companyName(),
+                "contact": generator.fullName(),
+                "salesRep": generator.fullName(),
+                "subject": generator.randomFromArray(['This is the subject','Short subject', 'A long subject which might overrun more than one single line on the page']),
+                "startDate": generator.date('yyyy/mm/dd'),
+                "targetDate": generator.date('yyyy/mm/dd'),
+                "updatedDate":  generator.date('yyyy/mm/dd'),
+            },
+            "products": []
         };
     };
 
@@ -23,9 +38,17 @@ let newPresentationList = function () {
     
     for (var i = 0; i < count; i++) {
         var newPresentation = singlePresentation();
+        
+        // generate a random number of products within a single purchase order
+        var productCount = generator.integer(false, 0, 6);
+        for (var productIndex = 0; productIndex <= productCount; productIndex++){
+            newPresentation.products.push(productGenerator(['id', 'supplier']));
+        }
+        
+        
         presentationList.push(newPresentation);
     }
-
+    
     
     responseObject.totalCount = count;
     responseObject.perPage = 15;

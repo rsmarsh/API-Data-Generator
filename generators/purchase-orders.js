@@ -4,7 +4,6 @@ const productGenerator = require('./product');
 let newPOList = function () {
 
     let poList = [];
-    let itemList = [];
 
     // the wrapper to the response which will always be present whether any companies exist or not
     let responseObject = {
@@ -28,12 +27,12 @@ let newPOList = function () {
                 "subject": generator.randomFromArray(["PO Subject","PO For Big Pen Order", "Here is your PO", "PO Here, thanks for your custom"]),
                 "startDate": generator.date('yyyy/mm/dd'),
                 "targetDate": generator.date('yyyy/mm/dd'),
-                "dateUpdated": generator.date('yyyy/mm/dd'),
+                "updatedDate": generator.date('yyyy/mm/dd'),
                 "shipDate": generator.date('yyyy/mm/dd'),
                 "inHandsDate": generator.date('yyyy/mm/dd'),
             },
             "items": {
-                "itemList": itemList,
+                "itemList": [],
                 "totals": {
                     "gross": generator.percent(),
                     "subtotal": generator.integer(false, 0, 999999).toString(),
@@ -50,15 +49,16 @@ let newPOList = function () {
     
     for (var i = 0; i < count; i++) {
         var newPO = singlePO();
+        
+        // generate a random number of items within a single purchase order
+        var itemCount = generator.integer(false, 0, 6);
+        for (var itemIndex = 0; itemIndex <= itemCount; itemIndex++){
+            newPO.items.itemList.push(productGenerator(['id', 'quantity', 'totalPrice']));
+        }
+        
         poList.push(newPO);
     }
 
-    // generate a random number of items within a single purchase order
-    var itemCount = generator.integer(false, 0, 6);
-
-    for (var itemIndex = 0; itemIndex <= itemCount; itemIndex++){
-        itemList.push(productGenerator(['id', 'quantity', 'totalPrice']));
-    }
     
     responseObject.totalCount = count;
     responseObject.perPage = 15;
