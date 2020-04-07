@@ -1,8 +1,10 @@
 const generator = require('../data-generator.js');
+const productGenerator = require('./product');
 
 let newPOList = function () {
 
     let poList = [];
+    let itemList = [];
 
     // the wrapper to the response which will always be present whether any companies exist or not
     let responseObject = {
@@ -15,25 +17,23 @@ let newPOList = function () {
         return {
             "poNumber": generator.integer(false, 0, 99999).toString(),
             "projectNumber": generator.integer(false, 0, 999999).toString(),
-            "lastUpdated": generator.date('yyyy/mm/dd'),
-            "companyName": generator.companyName(),
-            "status": generator.randomFromArray(["Receive PO","PO Not Sent"]),
+            "dateCreated": generator.date('yyyy/mm/dd'),
+            "supplier": generator.companyName(),
+            "status": generator.randomFromArray(["PO Not Sent", "New Order"]),
             "poDetails": {
+                "distPONumber": generator.integer(false, 0, 99999).toString(),
                 "customer": generator.companyName(),
                 "contact": generator.fullName(),
                 "salesRep": generator.fullName(),
                 "subject": generator.randomFromArray(["PO Subject","PO For Big Pen Order", "Here is your PO", "PO Here, thanks for your custom"]),
-                "startDate": generator.date('yyyy/mm/dd')
+                "startDate": generator.date('yyyy/mm/dd'),
+                "targetDate": generator.date('yyyy/mm/dd'),
+                "dateUpdated": generator.date('yyyy/mm/dd'),
+                "shipDate": generator.date('yyyy/mm/dd'),
+                "inHandsDate": generator.date('yyyy/mm/dd'),
             },
             "items": {
-                "itemList": [
-                    {
-                        "productId": generator.integer(false, 0, 999999).toString(),
-                        "description": generator.productName(),
-                        "quantity": generator.integer(false, 0, 999).toString(),
-                        "total": generator.integer(false, 0, 999999).toString(),
-                    }
-                ],
+                "itemList": itemList,
                 "totals": {
                     "gross": generator.percent(),
                     "subtotal": generator.integer(false, 0, 999999).toString(),
@@ -53,6 +53,12 @@ let newPOList = function () {
         poList.push(newPO);
     }
 
+    // generate a random number of items within a single purchase order
+    var itemCount = generator.integer(false, 0, 6);
+
+    for (var itemIndex = 0; itemIndex <= itemCount; itemIndex++){
+        itemList.push(productGenerator(['id', 'quantity', 'totalPrice']));
+    }
     
     responseObject.totalCount = count;
     responseObject.perPage = 15;
