@@ -4,7 +4,8 @@ const app = express();
 
 const APIList  = require('./generators');
 
-let endpointHits = 0;
+let apiHits = 0;
+let apiStartDate = new Date();
 
 app.use(cors());
 
@@ -22,7 +23,7 @@ app.get('/', (req, res) => {
     res.write(`
     The following endpoints are active, by visiting /api:
         ${getEndpointList()}
-    These endpoints have been hit ${endpointHits} times since the last deploy
+    These endpoints have been hit ${apiHits} times since the last deploy on ${apiStartDate}
     `);
     
     res.end();
@@ -34,6 +35,7 @@ app.get('/api/:endpointName', cors(), (req, res) => {
 
         const generatorRequested = APIList[req.params.endpointName];
         if (generatorRequested && typeof generatorRequested === 'function') {
+            endpointHits+=1;
             var data = generatorRequested();
             res.json(data);
             
