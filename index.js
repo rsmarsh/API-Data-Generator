@@ -35,7 +35,7 @@ app.get('/api/:endpointName', cors(), (req, res) => {
 
         const generatorRequested = APIList[req.params.endpointName];
         if (generatorRequested && typeof generatorRequested === 'function') {
-            endpointHits+=1;
+            apiHits+=1;
             var data = generatorRequested();
             res.json(data);
             
