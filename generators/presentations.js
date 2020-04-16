@@ -12,7 +12,6 @@ let newPresentationList = function () {
         "locale": generator.locale(false, true)
     };
 
-
     let singlePresentation = () => {
         return {
             "presentationNumber": generator.integer(false, 0, 99999).toString(),
@@ -33,22 +32,19 @@ let newPresentationList = function () {
 
    
     // generate a random number of presentations
-    var count = generator.integer(false, 0, 15);
+    let count = generator.integer(false, 0, 15);
     
-    console.log(count);
-    for (var i = 0; i < count; i++) {
-        var newPresentation = singlePresentation();
+    for (let i = 0; i < count; i++) {
+        let newPresentation = singlePresentation();
         
         // generate a random number of products within a single purchase order
-        var productCount = generator.integer(false, 0, 6);
-        for (var productIndex = 0; productIndex <= productCount; productIndex++){
+        let productCount = generator.integer(false, 0, 6);
+        for (let productIndex = 0; productIndex <= productCount; productIndex++){
             newPresentation.products.push(productGenerator(['id', 'supplier']));
         }
         
-        
         presentationList.push(newPresentation);
     }
-    
     
     responseObject.totalCount = count;
     responseObject.perPage = 15;
@@ -56,6 +52,5 @@ let newPresentationList = function () {
     return responseObject;
 
 };
-
 
 module.exports = newPresentationList;
