@@ -275,8 +275,9 @@ let percent = function(allowNegative = false){
 }
 
 let locale = function(getDefinition = false) {
-    let randomLocale = _randomInRange(Object.keys(locales));
-    return getDefinition ?  randomLocale : locales[randomLocale];
+    let randomLocale = randomFromArray(Object.keys(locales));
+    // it will return either "en-gb" or "English (United Kingdom)"
+    return getDefinition ? locales[randomLocale] : randomLocale;
 }
 
 
@@ -295,6 +296,6 @@ module.exports = {
     date,
     randomFromArray,
     productName,
-    percent
-
+    percent,
+    locale
 };

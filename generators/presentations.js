@@ -8,7 +8,8 @@ let newPresentationList = function () {
     // the wrapper to the response which will always be present whether any companies exist or not
     let responseObject = {
         "status": true,
-        "data": presentationList
+        "data": presentationList,
+        "locale": generator.locale()
     };
 
 
@@ -16,6 +17,7 @@ let newPresentationList = function () {
         return {
             "presentationNumber": generator.integer(false, 0, 99999).toString(),
             "projectNumber": generator.integer(false, 0, 99999).toString(),
+            "quotationDate": generator.date('yyyy/mm/dd'),
             "dateCreated": generator.date('yyyy/mm/dd'),
             "companyName": generator.companyName(),
             "status": generator.randomFromArray(['New Presentation', 'Presentation Sent']),
