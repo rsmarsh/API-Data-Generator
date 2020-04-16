@@ -9,7 +9,7 @@ let newPresentationList = function () {
     let responseObject = {
         "status": true,
         "data": presentationList,
-        "locale": generator.locale()
+        "locale": generator.locale(false, true)
     };
 
 
