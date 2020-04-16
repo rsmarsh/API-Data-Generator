@@ -2,6 +2,7 @@ const companyNames = require('./lists/companies.json');
 const addresses = require('./lists/addresses.json');
 const names = require('./lists/names.json');
 const products = require('./lists/products.json');
+const locales = require('./lists/locales.json');
 
 /**
  * Returns a randomly generated Phone/Mobile number
@@ -271,6 +272,11 @@ let productName = function(){
 
 let percent = function(allowNegative = false){
     return `${integer(allowNegative, 0, 100)}%`;
+}
+
+let locale = function(getDefinition = false) {
+    let randomLocale = _randomInRange(Object.keys(locales));
+    return getDefinition ?  randomLocale : locales[randomLocale];
 }
 
 
