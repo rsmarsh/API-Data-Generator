@@ -274,10 +274,25 @@ let percent = function(allowNegative = false){
     return `${integer(allowNegative, 0, 100)}%`;
 }
 
-let locale = function(getDefinition = false) {
+/**
+ * This function can return either "en-gb", "en_gb"  or "English (United Kingdom)" for example
+ *
+ * @param {boolean} [getDefinition=false] - Whether the funciton will return the locale code or the english definition
+ * @param {boolean} [javaLocale=false] - Should the locale be formatted as the ICU standard or the Java locale style
+ * @returns {String} - a random locale from a global list
+ */
+let locale = function(getDefinition = false, javaLocale = false) {
     let randomLocale = randomFromArray(Object.keys(locales));
-    // it will return either "en-gb" or "English (United Kingdom)"
-    return getDefinition ? locales[randomLocale] : randomLocale;
+
+    if (getDefinition) {
+        return locales[randomLocale];
+    }
+
+    // rough but it works for the most common web locales
+    if (javaLocale) {
+        randomLocale.replace('_', '-');
+    }
+    return randomLocale;
 }
 
 
