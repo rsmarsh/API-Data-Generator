@@ -16,13 +16,15 @@ let newPresentationList = function () {
         return {
             "presentationNumber": generator.integer(false, 0, 99999).toString(),
             "projectNumber": generator.integer(false, 0, 99999).toString(),
+            "createdDate": generator.date('yyyy/mm/dd'),
             "customerName": generator.fullName(),
             "status": generator.randomFromArray(['New Presentation', 'Presentation Sent']),
             "details": {
+                "type": generator.randomFromArray(['Customer', 'Prospect']),
+                "customerNumber": generator.integer(false, 0, 99999).toString(),
                 "contact": generator.fullName(),
                 "salesRep": generator.fullName(),
                 "subject": generator.randomFromArray(['This is the subject','Short subject', 'A long subject which might overrun more than one single line on the page']),
-                "createdDate": generator.date('yyyy/mm/dd'),
                 "targetDate": generator.date('yyyy/mm/dd'),
                 "lastUpdated":  generator.date('yyyy/mm/dd'),
             },
