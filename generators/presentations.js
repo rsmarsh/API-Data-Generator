@@ -20,7 +20,6 @@ let newPresentationList = function () {
             "customerName": generator.fullName(),
             "status": generator.randomFromArray(['New Presentation', 'Presentation Sent']),
             "details": {
-                "customer": generator.companyName(),
                 "contact": generator.fullName(),
                 "salesRep": generator.fullName(),
                 "subject": generator.randomFromArray(['This is the subject','Short subject', 'A long subject which might overrun more than one single line on the page']),
